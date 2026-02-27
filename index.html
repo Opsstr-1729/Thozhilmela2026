@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>KASE Attendance Management | Executive Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Noto+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
@@ -11,43 +11,46 @@
             --primary-light: #167ba3;
             --primary-dark: #093d52;
             --accent: #f8fafc;
-            --success: #059669;
-            --error: #dc2626;
             --bg: #f1f5f9;
             --text-main: #1e293b;
             --text-muted: #475569;
         }
 
+        /* Adjusted for Mobile Keyboard: Changed to Top alignment with scrolling */
         body { 
             font-family: 'Noto Sans', sans-serif; 
             background-color: var(--bg); 
             display: flex; 
+            flex-direction: column;
             align-items: center;
-            justify-content: center; 
+            justify-content: flex-start; /* Keeps content at the top */
             min-height: 100vh;
             margin: 0;
-            padding: 20px; 
+            padding: 10px; 
+            overflow-y: auto; /* Allows scrolling if keyboard pushes content */
         }
 
         .card { 
             background: #ffffff; 
-            padding: 3.5rem 3rem; 
+            padding: 2rem 1.5rem; 
             border-radius: 20px; 
             border: 1px solid #e2e8f0;
-            box-shadow: 0 20px 25px -5px rgba(14, 87, 116, 0.1); 
+            box-shadow: 0 10px 25px -5px rgba(14, 87, 116, 0.1); 
             width: 100%; 
-            max-width: 460px; 
+            max-width: 420px; 
             text-align: center; 
+            margin-top: 20px; /* Spacing from top of screen */
+            margin-bottom: 20px;
         }
 
         .header-section {
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
         }
 
         h2 { 
             font-family: 'Noto Serif', serif;
             color: var(--primary); 
-            font-size: 2rem; /* Enhanced for executive presence */
+            font-size: 1.6rem;
             font-weight: 700;
             margin: 0;
         }
@@ -55,40 +58,38 @@
         .sub-header { 
             font-family: 'Noto Sans', sans-serif;
             color: var(--text-muted); 
-            font-size: 0.9rem;
-            margin-top: 0.8rem;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.12em;
             font-weight: 700;
         }
 
         .input-wrapper {
             text-align: left;
-            margin-bottom: 2rem;
+            margin-bottom: 1.2rem;
         }
 
-        /* Increased Font Size for Labels as requested */
+        /* Prominent Labels for visual hierarchy */
         label { 
             display: block;
-            font-size: 0.95rem; /* Larger than identity field text */
+            font-size: 1rem; /* Scaled up for prominence */
             color: var(--primary); 
             font-weight: 800;
-            margin-bottom: 0.75rem;
-            letter-spacing: 0.03em;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
         }
 
         input { 
             width: 100%; 
-            padding: 1.25rem; 
+            padding: 0.8rem; 
             background: #ffffff;
             border: 1.5px solid #cbd5e1; 
             border-radius: 10px; 
-            font-size: 1.4rem; /* Prominent input text */
+            font-size: 1.2rem; 
             box-sizing: border-box; 
             text-align: center; 
             color: var(--text-main);
-            transition: all 0.3s ease;
             font-family: 'Noto Serif', serif;
         }
 
@@ -98,18 +99,17 @@
             box-shadow: 0 0 0 4px rgba(14, 87, 116, 0.1);
         }
 
-        /* Identity Field adjusted for hierarchy */
+        /* Identity Field hierarchy adjustment */
         #candidateName { 
             background-color: #f8fafc; 
             color: var(--primary-dark); 
-            font-weight: 400; /* Lighter weight for hierarchy */
-            border: 1.5px solid #e2e8f0; 
-            cursor: not-allowed;
-            font-size: 1.1rem; /* Smaller than the label above it */
-            font-style: italic; /* Distinctive for read-only state */
+            font-weight: 400;
+            border: 1.2px solid #e2e8f0; 
+            font-size: 0.95rem; /* Smaller than authentication label */
+            font-style: italic;
         }
 
-        /* Hide increment/decrement arrows */
+        /* Spinner removal */
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
             -webkit-appearance: none; margin: 0;
         }
@@ -117,41 +117,34 @@
         
         button { 
             width: 100%; 
-            padding: 1.25rem; 
+            padding: 1rem; 
             background: var(--primary); 
             color: white; 
             border: none; 
             border-radius: 10px; 
             font-weight: 700; 
             cursor: pointer; 
-            font-size: 1.15rem;
-            margin-top: 1rem;
-            transition: all 0.25s ease;
+            font-size: 1rem;
+            margin-top: 0.5rem;
             font-family: 'Noto Sans', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        button:hover {
-            background: var(--primary-light);
-            transform: translateY(-1px);
         }
 
         #status { 
-            margin-top: 2.5rem; 
-            font-size: 1.1rem;
+            margin-top: 1.5rem; 
+            font-size: 1rem;
             font-weight: 700; 
-            min-height: 1.5em; 
+            min-height: 1.2em; 
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             font-family: 'Noto Serif', serif;
         }
 
         .spinner {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             border: 3px solid rgba(14, 87, 116, 0.1);
             border-top-color: var(--primary);
             border-radius: 50%;
@@ -166,7 +159,7 @@
     <div class="card">
         <div class="header-section">
             <h2>KASE തൊഴിൽമേള 2026</h2>
-            <div class="sub-header">Executive Attendance Portal</div>
+            <div class="sub-header">Attendance Portal</div>
         </div>
         
         <div class="input-wrapper">
@@ -175,8 +168,8 @@
         </div>
         
         <div class="input-wrapper">
-            <label>Verified Candidate Identity</label>
-            <input type="text" id="candidateName" readonly placeholder="Awaiting Valid Input...">
+            <label>Candidate Identity</label>
+            <input type="text" id="candidateName" readonly placeholder="Awaiting Input...">
         </div>
         
         <button id="submitBtn" onclick="sendAttendance()">Mark Attendance</button>
@@ -197,8 +190,7 @@
             const nameField = document.getElementById('candidateName');
             
             if (id.length === 4) {
-                nameField.value = "Searching Database...";
-                nameField.style.fontStyle = "italic";
+                nameField.value = "Searching...";
                 try {
                     const response = await fetch(CSV_URL);
                     const text = await response.text();
@@ -209,10 +201,10 @@
                         nameField.value = match[2].replace(/"/g, ""); 
                         nameField.style.fontStyle = "normal";
                     } else {
-                        nameField.value = "Record Not Found";
+                        nameField.value = "No Record Found";
                     }
                 } catch (e) {
-                    nameField.value = "Connection Timeout";
+                    nameField.value = "Connection Error";
                 }
             } else {
                 nameField.value = "";
@@ -228,16 +220,16 @@
             const btn = document.getElementById('submitBtn');
             const id = idInput.value;
 
-            if (id.length < 4 || nameField.value === "Record Not Found") {
+            if (id.length < 4 || nameField.value === "No Record Found") {
                 statusText.style.color = "#dc2626";
-                statusText.innerText = "Error: Invalid Input";
+                statusText.innerText = "Error: Invalid ID";
                 return;
             }
 
             btn.disabled = true;
             spinner.style.display = "block";
             statusText.style.color = "#0e5774";
-            statusText.innerText = "Syncing with Cloud...";
+            statusText.innerText = "Logging...";
 
             try {
                 await fetch(SCRIPT_URL, {
@@ -248,7 +240,7 @@
                 });
 
                 statusText.style.color = "#059669";
-                statusText.innerText = "Attendance Logged Successfully";
+                statusText.innerText = "Success";
                 spinner.style.display = "none";
                 
                 setTimeout(() => {
@@ -260,7 +252,7 @@
 
             } catch (error) {
                 statusText.style.color = "#dc2626";
-                statusText.innerText = "Check Connection";
+                statusText.innerText = "Failed";
                 spinner.style.display = "none";
             } finally {
                 btn.disabled = false;
